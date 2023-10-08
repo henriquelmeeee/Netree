@@ -41,4 +41,10 @@ class ASTNode : public Scope {
     }
 
 };
+
+class VariableDeclaration : public ASTNode {
+  private:
+		Variable m_variable = {};
+};
+
 }

@@ -12,8 +12,26 @@
 
 namespace JS {
 
-class Variable {
-    
+enum class VariableKind {
+  INTENGER,
+  BOOLEAN
 };
 
+struct VarValue {
+  u32 IntengerValue;
+  _Bool BooleanValue;
+};
+
+class Variable {
+public:
+    VariableKind m_kind;
+    VarValue m_value;
+private:
+  Variable(VariableKind kind, VarValue value);
+
+  VariableKind getKind() const;
+  VarValue getValue() const;
+
+  // TODO: a method to modify m_value
+};
 }
