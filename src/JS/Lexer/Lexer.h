@@ -20,6 +20,11 @@ class Token {
     Token() {}
 };
 
+std::vector<char> special_chars = \
+    {
+      ')', '(', '\\', '\'', '"', '{', '}', '.', ';', '!', '=', '>', '<', '-'
+    };
+
 class Lexer {
   private:
     char* m_code = nullptr;
@@ -33,6 +38,10 @@ class Lexer {
       std::cout << "JS::Lexer(): Created! \\o/\n";
     }
 
+    bool __handle_special_char(char);
+
+    bool __consume_text();
+
     char peek(u32 offset = 0) {
       if(m_code[m_cursor + offset] >= m_code_length) {
         std::cout << "Unexpected peek()";
@@ -41,11 +50,29 @@ class Lexer {
       return m_code[m_cursor + offset];
     }
 
+    char next(u32 offset = 1) {
+      m_cursor+=offset;
+      return m_code[m_cursor];
+    }
+
     std::vector<Token> run() {
-      // TODO
+      while(true) {
+        char current_char = peek();
+        if(!__consume_text()) {
+          // We need to handle special char
+          // because '__consume_text()' returns 'false'
+          // if the current char is special.
+          if(!__handle_special_char(current_char)) {
+            // exit because we encountered an EOF.
+            return m_tokens;
+          }
+        } else {
+          next();
+        }
+      }
       return m_tokens;
     }
 
-};
+}; // class Lexer
 
-}
+} // namespace JS
