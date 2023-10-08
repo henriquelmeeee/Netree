@@ -44,7 +44,15 @@ class ASTNode : public Scope {
 
 class VariableDeclaration : public ASTNode {
   private:
-		Variable m_variable = {};
+    std::string m_name; // var name
+    Variable m_variable = {};
+  public:
+    VariableDeclaration(std::string& name, const Variable& variable) : m_name(name), m_variable(variable) {}
+
+
+    void execute(Scope& scope) override {
+      // Zing: TODO, implementar um metodo pra adicionar a variavel no escopo atual
+    }
 };
 
 }
