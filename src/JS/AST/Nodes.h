@@ -26,14 +26,14 @@ class Scope : public Program {
 
 class ASTNode : public Scope {
   public:
-    const std::string class_name() { return "ASTNode"; }
+    virtual const std::string class_name() { return "ASTNode"; }
 
     ASTNode() {
       std::cout << "ASTNode::ASTNode(): Generic ASTNode cannot be constructed.";
       exit(1);
     }
 
-    Variable execute(Scope&) {
+    virtual Variable execute(Scope&) {
       std::cout << "ASTNode::execute(): Generic ASTNode cannot be executed.";
       exit(1);
     }
