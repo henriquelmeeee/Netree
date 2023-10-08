@@ -48,11 +48,6 @@ class VariableDeclaration : public ASTNode {
     Variable m_variable = {};
   public:
     VariableDeclaration(std::string& name, const Variable& variable) : m_name(name), m_variable(variable) {}
-
-
-    void execute(Scope& scope) override {
-      // Zing: TODO, implementar um metodo pra adicionar a variavel no escopo atual
-    }
 };
 
 }
