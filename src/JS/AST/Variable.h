@@ -17,21 +17,21 @@ enum class VariableKind {
   BOOLEAN
 };
 
-struct VarValue {
-  u32 IntengerValue;
-  _Bool BooleanValue;
-};
+
+class Value; // TODO at ./Value.h
 
 class Variable {
-public:
-    VariableKind m_kind;
-    VarValue m_value;
 private:
-  Variable(VariableKind kind, VarValue value);
+    VariableKind m_kind;
+    Value m_value;
+public:
+  Variable(VariableKind kind, Value value) : m_value(value), m_kind(kind) {
+    std::cout << "Variable::Variable(): Variable created!\n";
+  }
 
   VariableKind getKind() const;
-  VarValue getValue() const;
+  Value getValue() const;
 
-  // TODO: a method to modify m_value
+  // TODO: a method to modify m_value (Henrique: since 'Value' will use C++ features, it will be implemented different.)
 };
 }
