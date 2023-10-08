@@ -10,6 +10,10 @@
 #include <stdio.h>
 #include <iostream>
 
-class Variable {
+namespace JS {
 
+class Variable {
+    
 };
+
+}

@@ -13,6 +13,8 @@
 
 #include "Variable.h"
 
+namespace JS {
+
 class Program {
 
 };
@@ -39,3 +41,4 @@ class ASTNode : public Scope {
     }
 
 };
+}
