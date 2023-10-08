@@ -33,7 +33,7 @@ class ASTNode : public Scope {
       exit(1);
     }
 
-    virtual void execute(Scope&) {
+    Variable execute(Scope&) {
       std::cout << "ASTNode::execute(): Generic ASTNode cannot be executed.";
       exit(1);
     }
