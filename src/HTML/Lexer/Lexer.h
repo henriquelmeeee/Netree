@@ -14,7 +14,6 @@
 #include "../../Core/Unicode.h"
 
 /*
- 
 Since HTML tokenization is often complex, we were inspired by Andreas Kling's lexer 
 (html-spec-compliant parser) which uses a series of macros to make the code more verbose.
 */
@@ -22,7 +21,7 @@ Since HTML tokenization is often complex, we were inspired by Andreas Kling's le
 #define ON(__char)                \
   if(peek() == __char)  
 
-#define STATE(__state)      \
+#define STATE(__state)            \
   case State::__state:
 
 enum State {
@@ -53,6 +52,6 @@ class Lexer {
       }
     }
 
-};
+}; // class Lexer
 
 } // namespace HTML
