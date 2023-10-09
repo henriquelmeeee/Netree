@@ -34,6 +34,7 @@ class Lexer {
 
     std::vector<Token> m_tokens = {};
   public:
+    Lexer() {}
     Lexer(char* code, u32 length) : m_code(code), m_code_length(length) {
       std::cout << "JS::Lexer(): Created! \\o/\n";
     }
