@@ -13,5 +13,6 @@
 #include <iostream>
 #include <vector>
 
-#include "Nodes.h"
+#include "Value.h"
 #include "Variable.h"
+#include "Nodes.h"

@@ -18,8 +18,6 @@ enum class VariableKind {
 };
 
 
-class Value; // TODO at ./Value.h
-
 class Variable {
 private:
     VariableKind m_kind;

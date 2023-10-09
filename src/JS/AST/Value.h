@@ -11,8 +11,10 @@
 #include <iostream>
 #include <vector>
 
-#include "AST.h"
+class Variable;
+class Scope;
 
+namespace JS {
 enum ValueType {
   Number,
   Double,
@@ -105,7 +107,8 @@ class Value {
 
     }
 
-    virtual Value execute(JS::Scope&) {
+    virtual Value execute(Scope&) {
       return *this;
     }
-};
+}; // class Value
+} // namespace JS

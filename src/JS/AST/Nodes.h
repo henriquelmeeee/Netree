@@ -11,7 +11,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Variable.h"
+#include "AST.h"
 
 namespace JS {
 
@@ -35,7 +35,7 @@ class ASTNode : public Scope {
       exit(1);
     }
 
-    virtual Variable execute(Scope&) {
+    virtual Value execute(Scope&) {
       std::cout << "ASTNode::execute(): Generic ASTNode cannot be executed.";
       exit(1);
     }
@@ -45,7 +45,7 @@ class ASTNode : public Scope {
 class VariableDeclaration : public ASTNode {
   private:
     std::string m_name; // var name
-    Variable m_variable = {};
+    Variable m_variable;
   public:
     VariableDeclaration(std::string& name, const Variable& variable) : m_name(name), m_variable(variable) {}
 };
