@@ -25,7 +25,7 @@
 class Parser {
   public:
     Parser() {}
-    Parser(std::vector<Token> tokens) {}
+    Parser(std::vector<JS::Token> tokens) {}
 
     std::vector<JS::ASTNode> run() { return {}; }
 }; // TODO parser class in Parser/*!
