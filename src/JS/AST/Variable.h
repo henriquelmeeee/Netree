@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <iostream>
 
+#include "Nodes.h"
+
 namespace JS {
 
 enum class VariableKind {
@@ -29,6 +31,11 @@ public:
 
   VariableKind getKind() const;
   Value getValue() const;
+
+  Value execute(Scope* scope) {
+    std::cout << "TODO append current variable in scope\n";
+    return Value(0);
+  }
 
   // TODO: a method to modify m_value (Henrique: since 'Value' will use C++ features, it will be implemented different.)
 };

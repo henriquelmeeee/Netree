@@ -21,7 +21,7 @@ class Program {
 
 class Scope : public Program {
   private:
-    std::vector<Variable> m_variables;
+    std::vector<Variable*> m_variables;
   public:
     Scope() { std::cout << "Scope::Scope() TODO"; exit(1); }
 };
@@ -35,7 +35,7 @@ class ASTNode : public Scope {
       exit(1);
     }
 
-    virtual Value execute(Scope&) {
+    virtual Value execute(Scope*) {
       std::cout << "ASTNode::execute(): Generic ASTNode cannot be executed.";
       exit(1);
     }
@@ -45,9 +45,13 @@ class ASTNode : public Scope {
 class VariableDeclaration : public ASTNode {
   private:
     std::string m_name; // var name
-    Variable m_variable;
+    Variable* m_variable;
   public:
-    VariableDeclaration(std::string& name, const Variable& variable) : m_name(name), m_variable(variable) {}
+    virtual const std::string class_name() { return "VariableDeclaration"; }
+
+    VariableDeclaration(std::string& name, Variable* variable) : m_name(name), m_variable(variable) {}
+
+    virtual Value execute(Scope*);
 };
 
 }
