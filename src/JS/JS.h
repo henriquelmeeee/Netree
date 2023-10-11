@@ -41,7 +41,7 @@ class JavascriptEngine {
       // FIXME Henrique: length is REALLY necessary? We can just use strlen()...
       std::cout << "JavascriptEngine::JavascriptEngine(): created!\n";
       m_lexer = Lexer(code, length);
-      m_parser = Parser();
+      m_parser = Parser({Token()});
     }
 
     bool run() {
@@ -51,7 +51,7 @@ class JavascriptEngine {
       m_parser = Parser(tokens);
       // The parser returns an vector of ASTNode
       // the Javascript Engine is responsible for creation of AST 'Program' class.
-      
+      #if 0 
       std::vector<ASTNode> ast_program = m_parser.run(); 
       Program* program = new Program();
       Scope main_scope_for_program = Scope();
@@ -61,6 +61,7 @@ class JavascriptEngine {
       program->append_node(main_scope_for_program);
 
       program->run();
+#endif
     }
 };
 

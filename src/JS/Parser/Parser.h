@@ -45,6 +45,8 @@ class Parser {
 
     }
 
+    Parser(){}
+
     Token* next() {
       if(m_cursor+1 >= m_tokens.size()) {
         return nullptr;
