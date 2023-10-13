@@ -12,13 +12,9 @@
 #include <vector>
 
 #include "../../Core/Types.h"
+#include "Tokens.h"
 
 namespace JS {
-
-class Token {
-  public:
-    Token() {}
-};
 
 std::vector<char> special_chars = \
     {

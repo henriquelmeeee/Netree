@@ -41,7 +41,7 @@ class JavascriptEngine {
       // FIXME Henrique: length is REALLY necessary? We can just use strlen()...
       std::cout << "JavascriptEngine::JavascriptEngine(): created!\n";
       m_lexer = Lexer(code, length);
-      m_parser = Parser({Token()});
+      //m_parser = Parser({Token()});
     }
 
     bool run() {
