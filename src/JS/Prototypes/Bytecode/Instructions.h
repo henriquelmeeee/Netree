@@ -1,27 +1,12 @@
+#pragma once
+
 #include <stdlib.h>
 #include <stdio.h>
-
 #include <iostream>
 #include <vector>
+#include "Registers.h"
 
-struct InstructionType {
-
-};
-
-class Block;
-class Instruction;
-
-class VirtualRegister {
-  private:
-  public:
-    unsigned long value;
-    unsigned long m_identifier;
-
-    VirtualRegister(unsigned long _identifier) \
-      : m_identifier(_identifier) {}
-
-    VirtualRegister() {}
-};
+struct InstructionType {};
 
 class VM {
   private:
@@ -107,16 +92,3 @@ void Block::dump_all() {
   }
 }
 
-int main() {
-  std::cout << "Protótipo de Bytecode\n";
-  Block block1 = Block();
-
-  VirtualRegister reg_1 = VirtualRegister(0);
-  VirtualRegister reg_2 = VirtualRegister(1);
-  
-  block1.instructions.push_back(new LoadImmediate(5, reg_1));
-  block1.instructions.push_back(new LoadImmediate(10, reg_2));
-  block1.instructions.push_back(new Add(reg_1, reg_2));
-
-  block1.dump_all();
-}
