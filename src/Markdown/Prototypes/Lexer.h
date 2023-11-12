@@ -24,6 +24,12 @@ class Token {
     }
 };
 
-namespace Lexer {
-  std::vector<Token> tokenize();
-} // namespace Lexer
+class Lexer {
+  private:
+    unsigned long m_index = 0;
+    std::vector<Token> m_tokens = {};
+  public:
+    const char current();
+    bool next();
+    std::vector<Token> tokenize(const char* code);
+};
