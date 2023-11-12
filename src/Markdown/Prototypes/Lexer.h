@@ -9,15 +9,18 @@
 #include <vector>
 
 enum TokenType {
-  String,
-  Mark,
+  STRING,
+  DOUBLE_STAR,
+  SINGLE_STAR,
+  BACKTICK,
+  TRIPLE_BACKTICK,
 };
 
 class Token {
   private:
     TokenType m_token_type;
-    const char* m_token_content;
   public:
+    const char* m_token_content;
     Token(TokenType token_type, const char* token_content) \
       : m_token_type(token_type), m_token_content(token_content) {
       
@@ -28,8 +31,22 @@ class Lexer {
   private:
     unsigned long m_index = 0;
     std::vector<Token> m_tokens = {};
+    const char* m_code = nullptr;
+
+    unsigned long m_current_line = 0;
   public:
     const char current();
-    bool next();
-    std::vector<Token> tokenize(const char* code);
+    const char next();
+    const char go_back();
+
+    std::vector<Token> tokenize();
+
+    void __handle_string();
+    void __handle_current_char();
+    void __handle_special_char();
+    void emit(Token);
+
+    Lexer(const char* code) : m_code(code) {
+
+    }
 };

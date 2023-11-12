@@ -11,6 +11,10 @@
 #include <vector>
 
 void Markdown::engine() {
-  std::vector<Token> md_tokens = Lexer::tokenize();
-  Parser::display(&md_tokens);
+  std::vector<Token> md_tokens = Lexer(m_code).tokenize();
+  //Parser::display(&md_tokens);
+}
+
+int main() {
+  Markdown("**oi**, tudo `bem`?");
 }
