@@ -16,5 +16,5 @@ void Markdown::engine() {
 }
 
 int main() {
-  Markdown("**oi**, tudo `bem`?");
+  Markdown("#Titulo\n#######Subtitulo\n\n**Ola**");
 }

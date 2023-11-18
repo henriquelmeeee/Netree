@@ -14,6 +14,7 @@ enum TokenType {
   SINGLE_STAR,
   BACKTICK,
   TRIPLE_BACKTICK,
+  HEADER,
 };
 
 class Token {
@@ -41,9 +42,10 @@ class Lexer {
 
     std::vector<Token> tokenize();
 
-    void __handle_string();
-    void __handle_current_char();
-    void __handle_special_char();
+    void handle_headers();
+    void handle_string();
+    void handle_special_char();
+    void handle_current_char();
     void emit(Token);
 
     Lexer(const char* code) : m_code(code) {

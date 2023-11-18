@@ -33,7 +33,22 @@ bool __is_special_char(const char current_char) {
   return std::find(special_chars.begin(), special_chars.end(), current_char) != special_chars.end();
 }
 
-void Lexer::__handle_string() {
+void Lexer::handle_headers() {
+  char headers[7] = {};
+  int headers_quantity = 0;
+  while(current() == '#') {
+    if(headers_quantity == 6) {
+      headers[headers_quantity] = '#';
+      break;
+    }
+    headers[headers_quantity] = '#';
+    ++headers_quantity;
+    next();
+  }
+  emit(Token(HEADER, headers));
+}
+
+void Lexer::handle_string() {
   std::string the_string;
   while(!__is_special_char(current())) {
     the_string.push_back(current());
@@ -44,8 +59,7 @@ void Lexer::__handle_string() {
   emit(Token(STRING, the_string.c_str()));
 }
 
-
-void Lexer::__handle_special_char() {
+void Lexer::handle_special_char() {
   switch(current()) {
     case '*':
       {
@@ -75,25 +89,30 @@ void Lexer::__handle_special_char() {
           break;
         }
       }
+    case '#':
+      {
+        handle_headers();
+        break;
+      }
     default:
       std::cerr << "Lexer error line " << m_current_line << ": expected 'special char', found '" << current() << "'";
       exit(1);
   }
 }
 
-void Lexer::__handle_current_char() {
+void Lexer::handle_current_char() {
   if(!__is_special_char(current())) {
-    __handle_string();
+    handle_string();
     return;
   }
-  __handle_special_char();
+  handle_special_char();
 }
 
 std::vector<Token> Lexer::tokenize() {
   while(current()) {
     if(current() == '\n')
       ++m_current_line;
-    __handle_current_char();
+    handle_current_char();
   }
 
   return m_tokens;
