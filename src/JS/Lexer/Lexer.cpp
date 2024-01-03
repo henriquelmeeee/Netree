@@ -1,11 +1,13 @@
 #include "Lexer.h"
 
+#define OR ||
+
 namespace JS {
 
   bool Lexer::__handle_special_char(char char_to_handle) {
     switch(char_to_handle) {
-      case '=':
-        emit(Token(Punctuator, "="));
+      case '=' OR '(' OR ')' OR ']' OR '[' OR ',' OR ';':
+        emit(Token(Punctuator, char_to_handle));
         break;
       default:
         perror("__handle_special_char");
