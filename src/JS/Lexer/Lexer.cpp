@@ -32,6 +32,9 @@ namespace JS {
         current_buffer_size += 2048;
         buffer = (char*) realloc(buffer, current_buffer_size);
       }
+
+      
+
       ++amount_of_chars_already_writed;
     }
   }
