@@ -36,21 +36,11 @@ class Lexer {
     }
 
     bool __handle_special_char(char);
-
     bool __consume_text();
 
-    char peek(u32 offset = 0) {
-      if(m_code[m_cursor + offset] >= m_code_length) {
-        std::cout << "Unexpected peek()";
-        return 0;
-      }
-      return m_code[m_cursor + offset];
-    }
-
-    char next(u32 offset = 1) {
-      m_cursor+=offset;
-      return m_code[m_cursor];
-    }
+    char peek(u32 offset = 0);
+    char next(u32 offset = 1);
+    bool emit(Token);
 
     std::vector<Token> run() {
       while(true) {

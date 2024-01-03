@@ -24,9 +24,7 @@ class Token {
     TokenType m_type;
     const char* m_value = nullptr;
     Token(TokenType type, const char* value = 0) : m_type(type) {
-      if(value != nullptr) {
-        m_value = value;
-      }
+      m_value = value;
     }
 
 
