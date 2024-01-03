@@ -1,4 +1,5 @@
 #include "Lexer.h"
+#include <stdlib.h>
 
 #define OR ||
 
@@ -12,11 +13,27 @@ namespace JS {
       default:
         perror("__handle_special_char");
     }
+    return true;
   }
 
   bool Lexer::__consume_text() {
     // For now, we will ignore '\"' ~Henrique
-    while(peek() != '"') {}
+    char current_token = peek();
+    char* buffer = (char*) malloc(2048);
+
+    int amount_of_chars_already_writed = 0;
+    int current_buffer_size = 2048;
+
+    while(current_token != '"') {
+      if(current_buffer_size == amount_of_chars_already_writed) {
+        if(current_buffer_size > 100000)
+          perror("__consume_text too many characters");
+
+        current_buffer_size += 2048;
+        buffer = (char*) realloc(buffer, current_buffer_size);
+      }
+      ++amount_of_chars_already_writed;
+    }
   }
 
   /* Basic functions */
