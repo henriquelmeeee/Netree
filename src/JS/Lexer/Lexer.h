@@ -57,8 +57,8 @@ class Lexer {
         char current_char = peek();
         if(!__consume_text()) {
           // We need to handle special char
-          // because '__consume_text()' returns 'false'
-          // if the current char is special.
+          // because '__consume_text()' returns 'false' if
+          // the current char is special.
           if(!__handle_special_char(current_char)) {
             // exit because we encountered an EOF.
             return m_tokens;
