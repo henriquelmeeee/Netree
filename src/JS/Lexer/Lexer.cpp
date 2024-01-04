@@ -30,13 +30,15 @@ namespace JS {
           perror("__consume_text too many characters");
 
         current_buffer_size += 2048;
-        buffer = (char*) realloc(buffer, current_buffer_size);
+        // We add '1' to the current_buffer_size in realloc() function
+        // to ensure that the addition of a null-byte will be suceeded.
+        buffer = (char*) realloc(buffer, current_buffer_size + 1);
       }
 
-      
-
-      ++amount_of_chars_already_writed;
+      buffer[++amount_of_chars_already_writed] = current_token;
+      current_token = next();
     }
+    buffer[++amount_of_chars_already_writed] = '\0';
   }
 
   /* Basic functions */
