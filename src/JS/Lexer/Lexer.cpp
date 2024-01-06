@@ -3,6 +3,12 @@
 
 #define OR ||
 
+// Temporary function. Needs improvement. ~Henrique 
+void __fatal(char* msg) {
+  std::cout << msg;
+  while(true);
+}
+
 namespace JS {
 
   bool Lexer::__handle_special_char(char char_to_handle) {
@@ -27,7 +33,7 @@ namespace JS {
     while(current_token != '"') {
       if(current_buffer_size == amount_of_chars_already_writed) {
         if(current_buffer_size > 100000)
-          perror("__consume_text too many characters");
+          __fatal("__consume_text too many characters");
 
         current_buffer_size += 2048;
         // We add '1' to the current_buffer_size in realloc() function
@@ -46,19 +52,36 @@ namespace JS {
   char Lexer::next(u32 offset = 1) {
     ++m_cursor;
     if(m_cursor > m_code_length)
-      perror("peek() overflow");
+      __fatal("next overflow");
     return m_code[offset];
   }
 
   char Lexer::peek(u32 offset = 0) {
     m_cursor += offset;
     if(m_cursor > m_code_length)
-      perror("peek overflow");
+      __fatal("peek overflow");
     return m_code[m_cursor];
   }
 
   bool Lexer::emit(Token token) {
+    if(token.m_value != nullptr)
+      std::cout << "emit " << token.m_value << "\n";
+    else
+      std::cout << "emit " << token.m_value_of_unique_char << "\n";
     m_tokens.push_back(token);
   }
 
 } // namespace JS
+
+#define __JS_LEXER_DEBUGGER
+#ifdef __JS_LEXER_DEBUGGER
+
+int main() {
+  std::cout << "[JS Lexer Debugger] started\n";
+
+  JS::Lexer lexer = JS::Lexer("console\"", 9);
+  lexer.run();
+
+}
+
+#endif
