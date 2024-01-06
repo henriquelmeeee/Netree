@@ -18,7 +18,8 @@ namespace JS {
 
 std::vector<char> special_chars = \
     {
-      ')', '(', '\\', '\'', '"', '{', '}', '.', ';', '!', '=', '>', '<', '-'
+      ')', '(', '\\', '\'', '"', '{', '}', '.', ';', '!', '=', '>', '<', '-',
+      '\0'
     };
 
 class Lexer {
@@ -42,19 +43,17 @@ class Lexer {
     char next(u32 offset = 1);
     bool emit(Token);
 
+    bool is_special_char(char);
+
     std::vector<Token> run() {
       while(true) {
         char current_char = peek();
-        if(!__consume_text()) {
-          // We need to handle special char
-          // because '__consume_text()' returns 'false' if
-          // the current char is special.
-          if(!__handle_special_char(current_char)) {
-            // exit because we encountered an EOF.
+        if(is_special_char(current_char)) {
+          std::cout << current_char << " é especial\n";
+          if(!__handle_special_char(current_char))
             return m_tokens;
-          }
         } else {
-          next();
+          __consume_text();
         }
       }
       return m_tokens;

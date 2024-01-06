@@ -1,10 +1,12 @@
 #include "Lexer.h"
 #include <stdlib.h>
+#include <algorithm>
+
 
 #define OR ||
 
 // Temporary function. Needs improvement. ~Henrique 
-void __fatal(char* msg) {
+void [[noreturn]] __fatal(const char* msg) {
   std::cout << msg;
   while(true);
 }
@@ -16,21 +18,29 @@ namespace JS {
       case '=' OR '(' OR ')' OR ']' OR '[' OR ',' OR ';':
         emit(Token(Punctuator, char_to_handle));
         break;
+      case '\0':
+        std::cout << "EOF\n";
+        return false;
       default:
-        perror("__handle_special_char");
+        __fatal("__handle_special_char");
     }
     return true;
   }
 
+  bool Lexer::is_special_char(char c) {
+    return std::find(special_chars.begin(), special_chars.end(), c) != special_chars.end();
+  }
+
   bool Lexer::__consume_text() {
     // For now, we will ignore '\"' ~Henrique
-    char current_token = peek();
+    char current_char = peek();
     char* buffer = (char*) malloc(2048);
 
     int amount_of_chars_already_writed = 0;
     int current_buffer_size = 2048;
+    std::cout << "consuming text\n";
 
-    while(current_token != '"') {
+    while(!is_special_char(current_char)) {
       if(current_buffer_size == amount_of_chars_already_writed) {
         if(current_buffer_size > 100000)
           __fatal("__consume_text too many characters");
@@ -41,9 +51,10 @@ namespace JS {
         buffer = (char*) realloc(buffer, current_buffer_size + 1);
       }
 
-      buffer[++amount_of_chars_already_writed] = current_token;
-      current_token = next();
+      buffer[amount_of_chars_already_writed++] = current_char;
+      current_char = next();
     }
+
     buffer[++amount_of_chars_already_writed] = '\0';
   }
 
@@ -78,8 +89,7 @@ namespace JS {
 
 int main() {
   std::cout << "[JS Lexer Debugger] started\n";
-
-  JS::Lexer lexer = JS::Lexer("console\"", 9);
+  JS::Lexer lexer = JS::Lexer("'.", 9);
   lexer.run();
 
 }
